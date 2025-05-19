@@ -1,0 +1,150 @@
+[gd_scene load_steps=23 format=3 uid="uid://djb4rsic41tp4"]
+
+[ext_resource type="PackedScene" uid="uid://rlmgvyg4mbu2" path="res://scenes/ball.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b8mc07cb3fwdc" path="res://main.gd" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bffauqwmf067d" path="res://scenes/player.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b8tq3ygmvj6pm" path="res://camera_3d.gd" id="2_272bh"]
+[ext_resource type="PackedScene" uid="uid://b25wtsdnk03vt" path="res://scenes/wall.tscn" id="2_w48qg"]
+[ext_resource type="PackedScene" uid="uid://bc7a3k0rvch" path="res://scenes/goal.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cykphw0k6mn0h" path="res://scenes/UserInterface.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://b54vc11c6etai" path="res://assets/AdobeStock_281231188.jpeg" id="3_kek77"]
+[ext_resource type="Texture2D" uid="uid://dh7j1l7vutc07" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_Color.jpg" id="4_kek77"]
+[ext_resource type="Texture2D" uid="uid://cku78cqknc6xi" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_AmbientOcclusion.jpg" id="5_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://c3oorsdynxx82" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_Displacement.jpg" id="6_w48qg"]
+[ext_resource type="Texture2D" uid="uid://s1icnr0f8h3g" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_NormalGL.jpg" id="7_vivmo"]
+[ext_resource type="Texture2D" uid="uid://cdadokl84ofre" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_Roughness.jpg" id="8_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://bietjx8bj16vr" path="res://assets/AdobeStock_305775190.jpeg" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://cema6n5k3a1om" path="res://scenes/floodlight.tscn" id="10_vivmo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek77"]
+albedo_texture = ExtResource("8_5vw27")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4c57u"]
+material = SubResource("StandardMaterial3D_kek77")
+size = Vector2(200, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+size = Vector3(393.461, 1, 194.056)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+albedo_texture = ExtResource("3_kek77")
+uv1_scale = Vector3(200, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_efxa6"]
+material = SubResource("StandardMaterial3D_4c57u")
+size = Vector3(208, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+albedo_texture = ExtResource("4_kek77")
+metallic = 1.0
+metallic_texture = ExtResource("6_w48qg")
+roughness_texture = ExtResource("8_2cqfq")
+normal_enabled = true
+normal_texture = ExtResource("7_vivmo")
+ao_enabled = true
+ao_texture = ExtResource("5_ycdy4")
+heightmap_enabled = true
+heightmap_texture = ExtResource("6_w48qg")
+uv1_scale = Vector3(20, 10, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_5vw27"]
+material = SubResource("StandardMaterial3D_efxa6")
+size = Vector2(400, 200)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_lquwl")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("2_w48qg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -97)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("2_w48qg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -199, 0, 102)
+
+[node name="Wall3" parent="Walls" instance=ExtResource("2_w48qg")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 200, 0, 102)
+
+[node name="Wall4" parent="Walls" instance=ExtResource("2_w48qg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 99)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="FootballField" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1.03411, 0, 0, 0, 1.25275e-08, 1, 0, -1.05054, 1.19249e-08, 0, 0.5, 0)
+mesh = SubResource("QuadMesh_4c57u")
+skeleton = NodePath("../..")
+
+[node name="Floor_CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.385315)
+shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="Corner_1" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 53)
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="Corner_2" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53.4634)
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="Corner_3" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(-2.27284e-08, 0, 1, 0, 1, 0, -0.519966, 0, -4.37114e-08, -104.089, 0, -0.070034)
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="Corner_4" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(-2.27284e-08, 0, 1, 0, 1, 0, -0.519966, 0, -4.37114e-08, 104.515, 0, -0.0498962)
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="Sand" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_5vw27")
+
+[node name="GoalLeft" parent="." instance=ExtResource("3_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99, 0, -0.152416)
+team_name = "Vermelho"
+
+[node name="GoalRight" parent="." instance=ExtResource("3_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.1237, 0, -0.136712)
+team_name = "Azul"
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 50, 0)
+light_color = Color(0.86479, 0.607948, 0.133648, 1)
+light_energy = 0.5
+light_indirect_energy = 0.25
+shadow_enabled = true
+directional_shadow_max_distance = 500.0
+
+[node name="Floodlight" parent="Lights" instance=ExtResource("10_vivmo")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -100, 0, -58)
+
+[node name="Floodlight2" parent="Lights" instance=ExtResource("10_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -58)
+
+[node name="Floodlight4" parent="Lights" instance=ExtResource("10_vivmo")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 46, 0, 63)
+
+[node name="Floodlight5" parent="Lights" instance=ExtResource("10_vivmo")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -43, 0, 63)
+
+[node name="Floodlight3" parent="Lights" instance=ExtResource("10_vivmo")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 103, 0, -57)
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 42.8016)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.990266, -0.13919, 0, 0.13919, 0.990266, 0, 7.63628, 77.4808)
+fov = 76.2
+far = 1000.0
+script = ExtResource("2_272bh")
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-0.464641, 0, 0.885499, 0, 1, 0, -0.885499, 0, -0.464641, 5.77256, 2.56076, 1.17629)
+
+[node name="Ball" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100384, 2.15872, 0.689545)
+
+[node name="UserInterface" parent="." instance=ExtResource("3_h2yge")]
