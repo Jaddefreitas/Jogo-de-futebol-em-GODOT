@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cykphw0k6mn0h"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel_1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 7.0
+offset_right = 212.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 32
+text = "Vermelho: 0"
+
+[node name="ScoreLabel_2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 52.0
+offset_right = 212.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 32
+text = "Azul: 0"

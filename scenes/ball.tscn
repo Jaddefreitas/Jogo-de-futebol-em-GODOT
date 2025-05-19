@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://rlmgvyg4mbu2"]
+
+[ext_resource type="Script" uid="uid://cnl78k2cf86js" path="res://scripts/ball.gd" id="1_7s4qf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
+albedo_color = Color(0.15913, 0.0217513, 0.190454, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0xm2m"]
+material = SubResource("StandardMaterial3D_ig7tw")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h2yge"]
+radius = 1.0
+
+[node name="Ball" type="RigidBody3D" groups=["ball"]]
+mass = 0.1
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp_mode = 1
+script = ExtResource("1_7s4qf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_0xm2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_h2yge")
+
+[node name="KickDisownTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="KickDisownTimer" to="." method="_on_kick_disown_timer_timeout"]

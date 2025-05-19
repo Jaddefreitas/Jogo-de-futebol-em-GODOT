@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bspjlhr5f6jbt"]
+
+[ext_resource type="PackedScene" uid="uid://c32q0lkhrja21" path="res://assets/cancha_futbol_5_con_reflectores.glb" id="1_8dmh1"]
+
+[node name="FootballField" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_8dmh1")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -152.462, 0, -316.223)

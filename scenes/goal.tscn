@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc7a3k0rvch"]
+
+[ext_resource type="Script" uid="uid://cbdali6igqc7x" path="res://scripts/goal.gd" id="1_jbojv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xl315"]
+size = Vector3(1, 15, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xl315"]
+size = Vector3(1, 15, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jbojv"]
+size = Vector3(1, 1, 29)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbojv"]
+size = Vector3(1, 1, 29)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+size = Vector3(1, 14, 25.9112)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_jbojv")
+
+[node name="Bars" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 14)
+mesh = SubResource("BoxMesh_xl315")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 14)
+shape = SubResource("BoxShape3D_xl315")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -14)
+mesh = SubResource("BoxMesh_xl315")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -14)
+shape = SubResource("BoxShape3D_xl315")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.5, 0)
+mesh = SubResource("BoxMesh_jbojv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.5, 0)
+shape = SubResource("BoxShape3D_jbojv")
+
+[node name="GoalArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GoalArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0.0298767)
+shape = SubResource("BoxShape3D_h2yge")
+
+[connection signal="body_exited" from="GoalArea" to="." method="_on_goal_area_body_exited"]

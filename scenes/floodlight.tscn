@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cema6n5k3a1om"]
+
+[ext_resource type="PackedScene" uid="uid://oqfn8fdkwrkb" path="res://assets/outdoor_floodlights.glb" id="1_dlgs5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlgs5"]
+size = Vector3(1, 28.0633, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u007c"]
+size = Vector3(3.32578, 4.53528, 5.11792)
+
+[node name="Floodlight" type="StaticBody3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_dlgs5")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.866025, 0.5, 0, -0.5, -0.866025, 0, 26.6407, 1.40856)
+shadow_enabled = true
+spot_range = 100.0
+spot_attenuation = 0.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SpotLight3D"]
+omni_range = 3.33203
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.0317, 0)
+shape = SubResource("BoxShape3D_dlgs5")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.592667, 1.76764, -2.67273)
+shape = SubResource("BoxShape3D_u007c")
